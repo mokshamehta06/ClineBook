@@ -1,8 +1,8 @@
-
 import React, { useState } from 'react'
 import { Link } from "react-router-dom";
 import { SearchIcon, MenuIcon, XIcon } from "lucide-react";
 import { assets } from "../assets/assets";
+import { Show, SignInButton, UserButton } from "@clerk/react";
 
 const NavBar = () => {
 
@@ -36,9 +36,17 @@ const NavBar = () => {
       <div className='flex items-center gap-8'>
         <SearchIcon className='max-md:hidden w-6 h-6 cursor-pointer' />
 
-        <button className='px-4 py-1 sm:px-7 sm:py-2 bg-primary hover:bg-primary-dull transition rounded-full font-medium cursor-pointer'>
-          Login
-        </button>
+        <Show when="signed-out">
+          <SignInButton mode="modal">
+            <button className='px-4 py-1 sm:px-7 sm:py-2 bg-primary hover:bg-primary-dull transition rounded-full font-medium cursor-pointer'>
+              Login
+            </button>
+          </SignInButton>
+        </Show>
+
+        <Show when="signed-in">
+          <UserButton />
+        </Show>
       </div>
 
       {/* Mobile Menu Icon */}
